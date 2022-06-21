@@ -1,7 +1,7 @@
 import React from 'react';
 import TaskList from './components/TaskList.js';
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
   const [tasks, setTasks] = useState([
