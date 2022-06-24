@@ -29,6 +29,25 @@ function App() {
 
   const flipComplete = (id) => {
     const copiedTasks = [...tasks];
+    //   const taskObject = copiedTasks.find((task) => task.id === id);
+    //   let promiseApi;
+
+    //   if (taskObject.isComplete) {
+    //     promiseApi = axios.patch(`${URL}/tasks/${id}/mark_incomplete`);
+    //   } else {
+    //     promiseApi = axios.patch(`${URL}/tasks/${id}/mark_complete`);
+    //   }
+
+    //   promiseApi.catch((err) => {
+    //     console.log(err);
+    //   });
+
+    //   promiseApi.then(() => {
+    //     taskObject.iscomplete = !taskObject.iscomplete;
+    //     setTasks(copiedTasks);
+    //   });
+    // };
+
     let matchingTask;
     for (const task of copiedTasks) {
       console.log(task);
@@ -75,6 +94,8 @@ function App() {
         console.log(err);
       });
   };
+
+  // const addTask = () => {};
 
   return (
     <div className="App">
