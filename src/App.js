@@ -1,5 +1,6 @@
 import React from 'react';
 import TaskList from './components/TaskList.js';
+import NewTaskForm from './components/NewTaskForm.js';
 import './App.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -9,7 +10,7 @@ function App() {
 
   const URL = 'https://task-list-api-c17.herokuapp.com';
 
-  useEffect(() => {
+  const fetchTasks = () => {
     axios
       .get(`${URL}/tasks`)
       .then((response) => {
@@ -25,7 +26,9 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  };
+
+  useEffect(fetchTasks, []);
 
   const flipComplete = (id) => {
     const copiedTasks = [...tasks];
@@ -95,7 +98,17 @@ function App() {
       });
   };
 
-  // const addTask = () => {};
+  const addTask = (taskInfo) => {
+    axios
+      .post(URL, taskInfo)
+      .then((response) => {
+        fetchTasks();
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="App">
@@ -109,6 +122,7 @@ function App() {
             completeCallback={flipComplete}
             deleteCallback={deleteTask}
           />
+          <NewTaskForm addTaskCallback={addTask} />
         </div>
       </main>
     </div>
