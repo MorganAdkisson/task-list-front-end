@@ -31,24 +31,31 @@ function App() {
   useEffect(fetchTasks, []);
 
   const flipComplete = (id) => {
+    // debugger; // eslint-disable-line no-debugger
     const copiedTasks = [...tasks];
     //   const taskObject = copiedTasks.find((task) => task.id === id);
-    //   let promiseApi;
 
     //   if (taskObject.isComplete) {
-    //     promiseApi = axios.patch(`${URL}/tasks/${id}/mark_incomplete`);
+    //     axios
+    //       .patch(`${URL}/tasks/${id}/mark_incomplete`)
+    //       .then(() => {
+    //         taskObject.iscomplete = !taskObject.iscomplete;
+    //         setTasks(copiedTasks);
+    //       })
+    //       .catch((err) => {
+    //         console.log(err);
+    //       });
     //   } else {
-    //     promiseApi = axios.patch(`${URL}/tasks/${id}/mark_complete`);
+    //     axios
+    //       .patch(`${URL}/tasks/${id}/mark_complete`)
+    //       .then(() => {
+    //         taskObject.iscomplete = !taskObject.iscomplete;
+    //         setTasks(copiedTasks);
+    //       })
+    //       .catch((err) => {
+    //         console.log(err);
+    //       });
     //   }
-
-    //   promiseApi.catch((err) => {
-    //     console.log(err);
-    //   });
-
-    //   promiseApi.then(() => {
-    //     taskObject.iscomplete = !taskObject.iscomplete;
-    //     setTasks(copiedTasks);
-    //   });
     // };
 
     let matchingTask;
