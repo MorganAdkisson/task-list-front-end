@@ -2,42 +2,78 @@ import React from 'react';
 import TaskList from './components/TaskList.js';
 import './App.css';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function App() {
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      title: 'Mow the lawn',
-      isComplete: false,
-    },
-    {
-      id: 2,
-      title: 'Cook Pasta',
-      isComplete: true,
-    },
-  ]);
+  const [tasks, setTasks] = useState([]);
+
+  const URL = 'https://task-list-api-c17.herokuapp.com';
+
+  useEffect(() => {
+    axios
+      .get(`${URL}/tasks`)
+      .then((response) => {
+        const newTasks = response.data.map((task) => {
+          return {
+            id: task.id,
+            title: task.title,
+            isComplete: task.is_complete,
+          };
+        });
+        setTasks(newTasks);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const flipComplete = (id) => {
-    const newTasks = [];
-    for (const task of tasks) {
+    const copiedTasks = [...tasks];
+    let matchingTask;
+    for (const task of copiedTasks) {
       console.log(task);
       if (task.id === id) {
-        task.isComplete = !task.isComplete;
-        console.log(task.isComplete);
+        matchingTask = task;
       }
-      newTasks.push(task);
     }
-    setTasks(newTasks);
+    if (matchingTask.isComplete) {
+      axios
+        .patch(`${URL}/tasks/${id}/mark_incomplete`)
+        .then(() => {
+          matchingTask.isComplete = !matchingTask.isComplete;
+          setTasks(copiedTasks);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      axios
+        .patch(`${URL}/tasks/${id}/mark_complete`)
+        .then(() => {
+          matchingTask.isComplete = !matchingTask.isComplete;
+          setTasks(copiedTasks);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   const deleteTask = (id) => {
-    const newTasks = [];
-    for (const task of tasks) {
-      if (task.id !== id) {
-        newTasks.push(task);
-      }
-    }
-    setTasks(newTasks);
+    axios
+      .delete(`${URL}/tasks/${id}`)
+      .then(() => {
+        const newTasks = [];
+        for (const task of tasks) {
+          if (task.id !== id) {
+            newTasks.push(task);
+          }
+        }
+        setTasks(newTasks);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
