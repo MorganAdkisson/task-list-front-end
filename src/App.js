@@ -32,7 +32,7 @@ function App() {
 
   const flipComplete = (id) => {
     // debugger; // eslint-disable-line no-debugger
-    const copiedTasks = [...tasks];
+
     //   const taskObject = copiedTasks.find((task) => task.id === id);
 
     //   if (taskObject.isComplete) {
@@ -57,7 +57,7 @@ function App() {
     //       });
     //   }
     // };
-
+    const copiedTasks = [...tasks];
     let matchingTask;
     for (const task of copiedTasks) {
       console.log(task);
@@ -107,7 +107,7 @@ function App() {
 
   const addTask = (taskInfo) => {
     axios
-      .post(URL, taskInfo)
+      .post(`${URL}/tasks`, taskInfo)
       .then((response) => {
         fetchTasks();
         console.log(response);

@@ -11,11 +11,11 @@ const NewTaskForm = (props) => {
   const [formData, setFormData] = useState(defaultTask);
 
   const onFormChange = (event) => {
-    const stateTitle = event.target.name;
+    const stateName = event.target.name;
     const inputValue = event.target.value;
 
     const newFormData = { ...formData };
-    newFormData[stateTitle] = inputValue;
+    newFormData[stateName] = inputValue;
 
     setFormData(newFormData);
   };
